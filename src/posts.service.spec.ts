@@ -5,30 +5,28 @@ describe("PostsService", () => {
   const post: Omit<Post, "id" | "date"> = {
     text: "Mocked post",
   };
-  let preExistingPost: Post;
 
   beforeEach(async () => {
     postsService = new PostsService();
 
-    preExistingPost = postsService.create({
+    postsService.create({
       text: "Some pre-existing post",
     });
   });
 
   it("should add a new post", () => {
-    // должен быть метод getAll для корректного теста
     const postToAdd = post;
 
     const createdPost = postsService.create(postToAdd);
 
-    expect(createdPost).toMatchObject(postToAdd);
+    expect(postsService["posts"]).toContain(createdPost);
   });
 
   it("should find a post", () => {
-    const { id } = preExistingPost;
+    const post = postsService["posts"][0];
 
-    const findedPost = postsService.find(id);
+    const findedPost = postsService.find(post.id);
 
-    expect(findedPost).toMatchObject(preExistingPost);
+    expect(findedPost).toMatchObject(post);
   });
 });
