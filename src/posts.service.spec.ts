@@ -15,20 +15,19 @@ describe("PostsService", () => {
   });
 
   it("should add a new post", () => {
-    const postToAdd = post;
-
-    const createdPost = postsService.create(postToAdd);
-
-    expect(postsService.getAll()).toContain(createdPost);
+    expect(postsService.create(post)).toMatchObject({
+      id: expect.any(String),
+      text: post.text,
+      date: expect.any(String),
+    });
   });
 
   it("should find a post", () => {
-    const posts = postsService.getAll();
-    const preExistingPost = posts[0];
-    console.log(preExistingPost);
-
-    const findedPost = postsService.find(preExistingPost.id);
-
-    expect(findedPost?.id).toEqual(preExistingPost.id);
+    const newPost = postsService.create(post);
+    expect(postsService.find(newPost.id)).toMatchObject({
+      id: newPost.id,
+      text: "Mocked post",
+      date: expect.any(String),
+    });
   });
 });
