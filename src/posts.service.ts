@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable } from "@nestjs/common";
 
 export interface Post {
   id: string;
@@ -11,7 +11,7 @@ export class PostsService {
   private posts: Post[] = [];
   private lastPostId = 1;
 
-  create(post: Omit<Post, 'id' | 'date'>) {
+  create(post: Omit<Post, "id" | "date">) {
     const postWithIdAndDate: Post = {
       ...post,
       id: this.lastPostId.toString(),
@@ -27,5 +27,9 @@ export class PostsService {
 
   find(postId: string) {
     return this.posts.find(({ id }) => id === postId);
+  }
+
+  getAll() {
+    return this.posts;
   }
 }
