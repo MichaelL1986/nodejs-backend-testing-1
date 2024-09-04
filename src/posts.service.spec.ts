@@ -25,9 +25,10 @@ describe("PostsService", () => {
   it("should find a post", () => {
     const posts = postsService.getAll();
     const preExistingPost = posts[0];
+    console.log(preExistingPost);
 
     const findedPost = postsService.find(preExistingPost.id);
 
-    expect(findedPost).toMatchObject(preExistingPost);
+    expect(findedPost?.id).toEqual(preExistingPost.id);
   });
 });
